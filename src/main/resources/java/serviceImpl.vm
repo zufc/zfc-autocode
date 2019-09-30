@@ -1,0 +1,120 @@
+package ${table.getBasicPackage()}.service.web.${table.getModeName()}.impl;
+
+import ${table.getBasicPackage()}.pojo.form.${table.getModeName()}.${table.getClassName()}Form;
+import ${table.getBasicPackage()}.pojo.query.${table.getModeName()}.${table.getClassName()}Query;
+import ${table.getBasicPackage()}.pojo.vo.${table.getModeName()}.${table.getClassName()}VO;
+import ${table.getBasicPackage()}.pojo.po.${table.getModeName()}.${table.getClassName()}PO;
+import ${table.getBasicPackage()}.converter.${table.getModeName()}.${table.getClassName()}Converter;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.deepexi.util.pageHelper.PageBean;
+import ${table.getBasicPackage()}.mapper.${table.getModeName()}.${table.getClassName()}Mapper;
+import ${table.getBasicPackage()}.service.web.${table.getClassName()}Service;
+import ${table.getBasicPackage()}.util.CollectionUtil;
+import com.github.pagehelper.PageHelper;
+import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
+import ${table.getBasicPackage()}.exception.ApplicationExceptionUtil;
+import org.springframework.stereotype.Service;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
+
+
+
+/**
+* @Description
+* @Author
+* @Date
+*/
+@Service
+public class ${table.getClassName()}ServiceImpl  extends ServiceImpl<${table.getClassName()}Mapper,${table.getClassName()}PO> implements ${table.getClassName()}Service {
+
+    @Autowired
+    private ${table.getClassName()}Mapper ${table.getFirstLowerName()}Mapper ;
+
+    @Autowired
+    private ${table.getClassName()}Converter ${table.getFirstLowerName()}Converter ;
+
+
+    /**
+    * 列表查询
+    **/
+     @Override
+    public PageBean<$table.getClassName()VO> pageList($table.getClassName()Query  query){
+
+        PageHelper.startPage(query.getPage(), query.getPageSize());
+        List<${table.getClassName()}PO> ${table.getFirstLowerName()}Lists = ${table.getFirstLowerName()}Mapper.pageList(query);
+
+        //如果返回的数据为空
+        if(CollectionUtil.isEmpty(${table.getFirstLowerName()}Lists)){
+            return new PageBean<>(Lists.newArrayList());
+        }
+
+        //数据转换
+        List<${table.getClassName()}VO> vos = Lists.newArrayList();
+        ${table.getFirstLowerName()}Lists.forEach(bean -> {
+            vos.add(${table.getFirstLowerName()}Converter.coverPoToVo(bean));
+        });
+
+        PageBean<${table.getClassName()}VO> pageBean = new PageBean<>(vos);
+        return pageBean;
+    }
+
+    @Override
+     public ${table.getClassName()}VO getById(String id) {
+
+
+           //获取数据库信息
+           ${table.getClassName()}PO po = this.getAndCheckById(id);
+
+           return ${table.getFirstLowerName()}Converter.coverPoToVo(po) ;
+
+     }
+
+
+     /**
+    * 新增
+    **/
+     @Override
+    public void save(${table.getClassName()}Form  form){
+
+        //校验参数
+        this.checkForm(form);
+        //转换参数
+        ${table.getClassName()}PO po = ${table.getFirstLowerName()}Converter.coverFormToPO(form);
+        //保存信息
+        ${table.getFirstLowerName()}Mapper.insert(po);
+    }
+
+
+    private void checkForm($table.getClassName()Form  form){
+
+#foreach($v in $table.getItems())
+    #if($!v.isPriKey() == false)
+    #if($!v.isNullable() == false)
+    if(form.get${v.getFirstBigName()}()==null){
+        ApplicationExceptionUtil.throwParamsException("参数错误 数据不能为空!");
+    }
+    #end
+    #end
+#end
+
+    }
+
+    private ${table.getClassName()}PO  getAndCheckById (Serializable id){
+         //获取数据
+         if(Objects.isNull(id)){
+                ApplicationExceptionUtil.throwParamsException("主键不能为空!");
+         }
+         $table.getClassName()PO po = ${table.getFirstLowerName()}Mapper.selectById(id);
+
+         if(po==null){
+                ApplicationExceptionUtil.throwParamsException("查询不到数据信息!");
+         }
+         return po ;
+    }
+
+
+}

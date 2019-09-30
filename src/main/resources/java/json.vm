@@ -1,0 +1,18 @@
+{
+    "payload":{
+        "totalElements": 1,
+        "content": [
+            {
+                #foreach($v in $table.getSearch())
+                "$v.name":"$v.comment";
+                #end
+            }
+        ],
+        "number": 1,
+        "size": 10,
+        "totalPages": 1,
+        "numberOfElements": 1
+    },
+    "code":"0",
+    "msg":"ok"
+}

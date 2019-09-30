@@ -1,0 +1,37 @@
+package ${table.getBasicPackage()}.pojo.form.${table.getModeName()};
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+
+/**
+* @author
+* @date
+* @discription 类描述:
+*/
+
+@ApiModel(value = "$table.getClassName()FORM对象", description = "$table.getClassName()FORM对象")
+public class $table.getClassName()Form  implements Serializable{
+
+
+#foreach($v in $table.getItems())
+  /**
+  *$v.comment
+  **/
+  @ApiModelProperty(value = "$v.comment")
+  private $v.jtype $v.name;
+#end
+#foreach($v in $table.getItems())
+  public $v.jtype get${v.getFirstBigName()}() {
+    return $v.name;
+  }
+
+  public void set${v.getFirstBigName()}($v.jtype $v.name) {
+    this.$v.name = $v.name;
+  }
+#end
+
+}

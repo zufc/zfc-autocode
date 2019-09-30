@@ -1,0 +1,57 @@
+package ${table.getBasicPackage()}.${table.getModeName()}.rpc.impl.$table.getModeName()
+
+import ${table.getBasicPackage()}.base.dto.BaseRequestDto;
+import ${table.getBasicPackage()}.pojo.form.${table.getModeName()}.${table.getClassName()}Form;
+import ${table.getBasicPackage()}.pojo.query.${table.getModeName()}.${table.getClassName()}Query;
+import ${table.getBasicPackage()}.pojo.vo.${table.getModeName()}.${table.getClassName()}VO;
+import ${table.getBasicPackage()}.service.web.${table.getModeName()}.${table.getClassName()}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import ${table.getBasicPackage()}.util.pageHelper.PageBean;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+* @author
+* @projectName
+* @description:
+* @date 2
+*/
+@RestController
+@RequestMapping("/api/v1/${table.getModeName()}/${table.getClassName()}")
+public class $table.getClassName()RpcController {
+
+    @Autowired
+    private ${table.getClassName()}Service ${table.getFirstLowerName()}Service;
+
+
+    @PostMapping("/pageList")
+    public PageBean<${table.getClassName()}VO> pageList(@RequestBody  ${table.getClassName()}Query  query){
+
+        return ${table.getFirstLowerName()}Service.pageList(query);
+
+    }
+
+    @PostMapping("/getById")
+    public ${table.getClassName()}VO getById(String id){
+
+        return ${table.getFirstLowerName()}Service.getById(id);
+
+    }
+
+    @PostMapping("/save")
+    public void save(@RequestBody ${table.getClassName()}Form form){
+
+         ${table.getFirstLowerName()}Service.save(form);
+
+    }
+
+}

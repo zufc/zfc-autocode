@@ -1,0 +1,44 @@
+package ${table.getBasicPackage()}.pojo.po.${table.getModeName()};
+
+import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
+import org.springframework.format.annotation.DateTimeFormat;
+import ${table.getBasicPackage()}.pojo.po.BasePO;
+
+import java.time.LocalDateTime;
+
+/**
+* @author
+* @date
+* @discription 类描述:数据库映射
+*/
+
+@TableName(value = "$table.getName()")
+public class $table.getClassName()PO extends BasePO {
+
+private static final long serialVersionUID = 1L;
+
+#foreach($v in $table.getItems())
+#if ( $v.name == "tenantId" || $v.name == "companyId"|| $v.name == "creatorId" || $v.name == "createdBy"|| $v.name == "createdAt"|| $v.name == "modifierId"|| $v.name == "updatedBy"|| $v.name == "updatedAt"|| $v.name == "dr")
+#else
+    /**
+    *$v.comment
+    **/
+    private $v.jtype $v.name;
+#end
+#end
+#foreach($v in $table.getItems())
+#if ( $v.name == "tenantId" || $v.name == "companyId"|| $v.name == "creatorId" || $v.name == "createdBy"|| $v.name == "createdAt"|| $v.name == "modifierId"|| $v.name == "updatedBy"|| $v.name == "updatedAt"|| $v.name == "dr")
+#else
+
+    public $v.jtype get${v.getFirstBigName()}() {
+        return $v.name;
+    }
+    
+    public void set${v.getFirstBigName()}($v.jtype $v.name) {
+        this.$v.name = $v.name;
+    }
+#end
+#end
+
+}

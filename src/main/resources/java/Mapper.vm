@@ -1,0 +1,18 @@
+package ${table.getBasicPackage()}.mapper.${table.getModeName()};
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import ${table.getBasicPackage()}.pojo.po.${table.getModeName()}.${table.getClassName()}PO;
+import ${table.getBasicPackage()}.pojo.query.${table.getModeName()}.${table.getClassName()}Query;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
+
+
+@Mapper
+public interface $table.getClassName()Mapper extends BaseMapper<$table.getClassName()PO> {
+
+    public List<${table.getClassName()}PO>  pageList(@Param("param") $table.getClassName()Query query);
+
+    public void insertBatch(@Param("list") List<${table.getClassName()}PO> list);
+
+}

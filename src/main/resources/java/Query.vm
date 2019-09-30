@@ -1,0 +1,27 @@
+package ${table.getBasicPackage()}.pojo.query.${table.getModeName()};
+
+import com.deepexi.common.base.query.BaseQuery;
+import java.time.LocalDateTime;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "$table.getClassName()查询对象", description = "$table.getClassName()查询对象")
+public class $table.getClassName()Query  extends BaseQuery{
+
+#foreach($v in $table.getSearch())
+    /**
+    *$v.comment
+    **/
+    @ApiModelProperty(value = "$v.comment")
+    private $v.jtype $v.name;
+#end
+#foreach($v in $table.getSearch())
+    public $v.jtype get${v.getFirstBigName()}() {
+        return $v.name;
+    }
+
+    public void set${v.getFirstBigName()}($v.jtype $v.name) {
+        this.$v.name = $v.name;
+    }
+#end
+}

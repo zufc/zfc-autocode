@@ -1,0 +1,40 @@
+package ${table.getBasicPackage()}.converter.${table.getModeName()};
+
+import ${table.getBasicPackage()}.pojo.form.${table.getModeName()}.${table.getClassName()}Form;
+import ${table.getBasicPackage()}.pojo.query.${table.getModeName()}.${table.getClassName()}Query;
+import ${table.getBasicPackage()}.pojo.vo.${table.getModeName()}.${table.getClassName()}VO;
+import ${table.getBasicPackage()}.pojo.po.${table.getModeName()}.${table.getClassName()}PO;
+
+import org.springframework.stereotype.Component;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+
+/**
+* @author
+* @date
+* @discription 类描述:
+*/
+
+@Component
+public class $table.getClassName()Converter  implements Serializable{
+
+    public  $table.getClassName()PO coverFormToPO($table.getClassName()Form  from){
+
+        $table.getClassName()PO po = new $table.getClassName()PO();
+        #foreach($v in $table.getItems())
+    po.set${v.getFirstBigName()}(from.get${v.getFirstBigName()}());
+        #end
+        return po ;
+
+    }
+
+    public  $table.getClassName()VO coverPoToVo($table.getClassName()PO  po){
+
+        $table.getClassName()VO vo = new $table.getClassName()VO();
+        #foreach($v in $table.getItems())
+        vo.set${v.getFirstBigName()}(po.get${v.getFirstBigName()}());
+        #end
+        return vo ;
+    }
+
+}

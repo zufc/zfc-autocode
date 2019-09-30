@@ -1,0 +1,30 @@
+package ${table.getBasicPackage()}.service.web.${table.getModeName()};
+
+import ${table.getBasicPackage()}.pojo.form.${table.getModeName()}.${table.getClassName()}Form;
+import ${table.getBasicPackage()}.pojo.query.${table.getModeName()}.${table.getClassName()}Query;
+import ${table.getBasicPackage()}.pojo.vo.${table.getModeName()}.${table.getClassName()}VO;
+import ${table.getBasicPackage()}.util.pageHelper.PageBean;
+
+/**
+* @Description
+* @Author
+* @Date
+*/
+public interface $table.getClassName()Service {
+
+    /**
+     *列表查询
+    **/
+    public PageBean<${table.getClassName()}VO> pageList(${table.getClassName()}Query  query);
+
+    /**
+    * 根据主键获取信息
+    **/
+    public ${table.getClassName()}VO getById(String id);
+
+    /**
+     * 保存
+    **/
+    public void save($table.getClassName()Form form);
+
+}

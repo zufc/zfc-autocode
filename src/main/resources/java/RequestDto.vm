@@ -1,0 +1,22 @@
+package ${table.getBasicPackage()}.$table.getModeName().dto;
+
+import ${table.getBasicPackage()}.base.dto;
+
+public class $table.getClassName()RequestDto  extends BaseRequestDto{
+
+#foreach($v in $table.getSearch())
+    /**
+    *$v.comment
+    **/
+    private $v.jtype $v.name;
+#end
+#foreach($v in $table.getSearch())
+    public $v.jtype get${v.getFirstBigName()}() {
+        return $v.name;
+    }
+
+    public void set${v.getFirstBigName()}($v.jtype $v.name) {
+        this.$v.name = $v.name;
+    }
+#end
+}
